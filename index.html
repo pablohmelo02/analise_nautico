@@ -234,6 +234,60 @@
           <div class="period-grid" id="periodGrid"></div>
           <div class="streak-grid" id="streakGrid"></div>
         </article>
+
+        <article class="panel halves-panel">
+          <div class="panel-head halves-head">
+            <div>
+              <p class="section-kicker">MOMENTOS DO JOGO</p>
+              <h2>Antes e depois do intervalo</h2>
+            </div>
+            <p>ComparaÃ§Ã£o dos gols marcados e sofridos em cada etapa da partida.</p>
+          </div>
+          <div class="halves-grid">
+            <section class="half-card">
+              <div class="half-card-head">
+                <div><span>1Âº TEMPO</span><small>atÃ© o intervalo</small></div>
+                <b id="firstHalfBalance">-- saldo</b>
+              </div>
+              <div class="half-score">
+                <div><strong id="firstHalfFor">--</strong><span>marcados</span></div>
+                <i>Ã—</i>
+                <div><strong id="firstHalfAgainst">--</strong><span>sofridos</span></div>
+              </div>
+              <div class="half-bars">
+                <div><span>PrÃ³</span><i><b id="firstForBar"></b></i></div>
+                <div><span>Contra</span><i><b class="against" id="firstAgainstBar"></b></i></div>
+              </div>
+              <div class="half-share"><span>ParticipaÃ§Ã£o nos gols marcados</span><b id="firstHalfShare">--</b></div>
+            </section>
+            <section class="half-card second">
+              <div class="half-card-head">
+                <div><span>2Âº TEMPO</span><small>apÃ³s o intervalo</small></div>
+                <b id="secondHalfBalance">-- saldo</b>
+              </div>
+              <div class="half-score">
+                <div><strong id="secondHalfFor">--</strong><span>marcados</span></div>
+                <i>Ã—</i>
+                <div><strong id="secondHalfAgainst">--</strong><span>sofridos</span></div>
+              </div>
+              <div class="half-bars">
+                <div><span>PrÃ³</span><i><b id="secondForBar"></b></i></div>
+                <div><span>Contra</span><i><b class="against" id="secondAgainstBar"></b></i></div>
+              </div>
+              <div class="half-share"><span>ParticipaÃ§Ã£o nos gols marcados</span><b id="secondHalfShare">--</b></div>
+            </section>
+          </div>
+          <div class="halves-insights">
+            <div><span>MAIS PRODUTIVO</span><b id="productiveHalf">--</b></div>
+            <div><span>MAIS VULNERÃVEL</span><b id="vulnerableHalf">--</b></div>
+            <div><span>MELHOROU Ã— PIOROU</span><b id="improvedResults">--</b><small>resultado apÃ³s o intervalo</small></div>
+            <div><span>IMPACTO PÃ“S-INTERVALO</span><b id="pointsSwing">--</b><small>comparado ao placar do intervalo</small></div>
+          </div>
+          <div class="analysis-note halves-note">
+            <span>LEITURA POR TEMPO</span>
+            <p id="halvesInsight"></p>
+          </div>
+        </article>
       </section>
 
       <section class="matches-section" id="jogos">

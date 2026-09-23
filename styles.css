@@ -287,6 +287,38 @@ output { color: var(--red-deep); background: var(--red-soft); border: 1px solid 
 .streak-item b { display: block; font: 650 24px/1 var(--font-sans); }
 .streak-item span { display: block; color: var(--muted); font-size: 9px; line-height: 1.35; margin-top: 6px; }
 
+.halves-panel { grid-column: 1 / -1; }
+.halves-head > p { max-width: 360px; margin: 8px 0 0; color: var(--muted); font-size: 11px; line-height: 1.5; text-align: right; }
+.halves-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.half-card { padding: 18px; border: 1px solid var(--line); border-radius: 13px; background: #fafafa; }
+.half-card.second { background: #fffafa; border-color: #eed9da; }
+.half-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.half-card-head div span, .half-card-head div small { display: block; }
+.half-card-head div span { color: var(--ink); font-size: 11px; font-weight: 850; letter-spacing: .11em; }
+.half-card-head div small { color: var(--muted); font-size: 9px; margin-top: 4px; }
+.half-card-head > b { color: var(--muted); background: #eeeeec; border-radius: 99px; padding: 6px 9px; font-size: 9px; }
+.half-card-head > b.positive { color: #176a49; background: var(--win-soft); }
+.half-card-head > b.negative { color: var(--red-deep); background: var(--red-soft); }
+.half-score { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; margin: 21px 0; }
+.half-score > div { padding: 12px; background: white; border-radius: 10px; text-align: center; }
+.half-score strong { display: block; font-size: 34px; line-height: 1; letter-spacing: -.04em; }
+.half-score span { display: block; color: var(--muted); font-size: 8px; font-weight: 750; text-transform: uppercase; margin-top: 7px; }
+.half-score > i { color: #aaa7a1; font-size: 12px; font-style: normal; }
+.half-bars { display: grid; gap: 8px; }
+.half-bars > div { display: grid; grid-template-columns: 44px 1fr; align-items: center; gap: 9px; }
+.half-bars span { color: var(--muted); font-size: 9px; }
+.half-bars i { display: block; height: 7px; overflow: hidden; background: #ececea; border-radius: 99px; }
+.half-bars b { display: block; width: 0; height: 100%; background: var(--red); border-radius: inherit; transition: width .55s ease; }
+.half-bars b.against { background: #77777b; }
+.half-share { display: flex; justify-content: space-between; align-items: center; gap: 12px; border-top: 1px solid var(--line); margin-top: 16px; padding-top: 13px; }
+.half-share span { color: var(--muted); font-size: 9px; }
+.half-share b { font-size: 13px; }
+.halves-insights { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; }
+.halves-insights > div { min-height: 82px; padding: 13px; background: #f4f4f2; border-radius: 10px; }
+.halves-insights span { display: block; color: var(--muted); font-size: 8px; font-weight: 850; letter-spacing: .08em; }
+.halves-insights b { display: block; font-size: 18px; margin-top: 9px; }
+.halves-insights small { display: block; color: var(--muted); font-size: 8px; margin-top: 5px; line-height: 1.35; }
+.halves-note { margin-top: 12px; }
 .matches-section { padding-top: 66px; }
 .matches-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 22px; }
 .search-box { display: flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 10px 13px; min-width: 240px; }
@@ -361,6 +393,9 @@ footer { display: none; }
   .analysis-note { grid-template-columns: 1fr; }
   .game-strip { grid-template-columns: repeat(7, 1fr); }
   .period-grid { grid-template-columns: 1fr; }
+  .halves-grid { grid-template-columns: 1fr; }
+  .halves-head > p { text-align: left; }
+  .halves-insights { grid-template-columns: repeat(2, 1fr); }
   .streak-grid { grid-template-columns: repeat(2, 1fr); gap: 20px 0; }
   .streak-item:nth-child(2) { border: 0; }
   .donut-row { grid-template-columns: 125px 1fr; gap: 16px; }

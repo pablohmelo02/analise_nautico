@@ -41,6 +41,7 @@ Os dados representam o recorte disponível até 15 de setembro de 2026.
 
 - O Náutico apresenta melhor rendimento como mandante: **57,1% de aproveitamento**, contra **33,3% como visitante**.
 - Dos 38 pontos conquistados, **24 foram obtidos em casa** e **14 fora de casa**.
+- O saldo muda de **−8 no primeiro tempo** para **+10 no segundo**; 71,4% dos gols da equipe foram marcados após o intervalo.
 - Após 28 rodadas, a equipe está **4 pontos abaixo** do ritmo equivalente a 50% de aproveitamento.
 - Mantida a média de 1,36 ponto por jogo, a projeção é encerrar a competição com aproximadamente **52 pontos**.
 - O intervalo mais provável do modelo concentra 80% dos cenários entre **46 e 57 pontos**, com mediana de **51 pontos**.
@@ -52,6 +53,7 @@ Os dados representam o recorte disponível até 15 de setembro de 2026.
 - distribuição de vitórias, empates e derrotas;
 - evolução da pontuação rodada a rodada;
 - comparação entre desempenho em casa e como visitante;
+- comparação de gols marcados e sofridos no primeiro e no segundo tempo;
 - rendimento por períodos da competição;
 - sequência recente e indicadores de consistência;
 - projeção de pontuação para as 38 rodadas;
@@ -129,7 +131,15 @@ Depois, acesse <code>http://localhost:8000</code>.
 
 ## Atualização dos dados
 
-O arquivo <code>coleta_detalhada.py</code> concentra a rotina de coleta, enquanto <code>nautico_serie_b_2026_todos_jogos.csv</code> funciona como base consolidada da dashboard. Após atualizar o CSV e enviar um novo commit para a branch <code>main</code>, o Streamlit Community Cloud realiza o redeploy da aplicação.
+O arquivo <code>coleta_detalhada.py</code> concentra a rotina de coleta, incluindo os placares do primeiro e do segundo tempo, enquanto <code>nautico_serie_b_2026_todos_jogos.csv</code> funciona como base consolidada da dashboard.
+
+Antes de executar a coleta, informe a chave da API por variável de ambiente no PowerShell:
+
+<pre><code>$env:FSAPI_KEY="SUA_CHAVE"
+python coleta_detalhada.py
+</code></pre>
+
+A chave não deve ser gravada no código nem enviada ao GitHub. Após atualizar o CSV e enviar um novo commit para a branch <code>main</code>, o Streamlit Community Cloud realiza o redeploy da aplicação.
 
 ## Competências demonstradas
 

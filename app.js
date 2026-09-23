@@ -29,6 +29,18 @@ let matches = [
   ['2026-09-15','Operario-PR','Casa',3,3,'E']
 ].map((m, i) => ({ round: i + 1, date: m[0], opponent: m[1], venue: m[2], gf: m[3], ga: m[4], result: m[5], points: m[5] === 'V' ? 3 : m[5] === 'E' ? 1 : 0 }));
 
+const halfTimeScores = [
+  [0,1], [0,1], [0,0], [0,0], [0,0], [0,0], [0,1],
+  [2,0], [2,1], [0,0], [0,1], [0,1], [1,0], [1,4],
+  [0,1], [0,0], [0,1], [0,1], [1,0], [0,0], [1,0],
+  [0,1], [1,0], [0,0], [0,1], [0,0], [0,2], [1,1]
+];
+
+matches = matches.map((match, index) => {
+  const [htGf, htGa] = halfTimeScores[index];
+  return {...match, htGf, htGa, shGf: match.gf - htGf, shGa: match.ga - htGa};
+});
+
 const $ = (id) => document.getElementById(id);
 const pct = (n) => `${n.toLocaleString('pt-BR', {minimumFractionDigits: 1, maximumFractionDigits: 1})}%`;
 const decimal = (n) => n.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -340,6 +352,68 @@ function updateScenario() {
   }
 }
 
+function resultPoints(gf, ga) {
+  return gf > ga ? 3 : gf === ga ? 1 : 0;
+}
+function signedNumber(value) {
+  return (value > 0 ? '+' : '') + value;
+}
+function setHalfBalance(id, value) {
+  const element = $(id);
+  element.textContent = signedNumber(value) + ' saldo';
+  element.classList.toggle('positive', value > 0);
+  element.classList.toggle('negative', value < 0);
+}
+function renderHalves(list) {
+  const valid = list.filter(m => [m.htGf, m.htGa, m.shGf, m.shGa].every(Number.isFinite));
+  if (!valid.length) {
+    $('halvesInsight').textContent = 'Os placares de intervalo nÃ£o estÃ£o disponÃ­veis para este recorte.';
+    return;
+  }
+  const totals = valid.reduce((acc, match) => {
+    acc.htGf += match.htGf;
+    acc.htGa += match.htGa;
+    acc.shGf += match.shGf;
+    acc.shGa += match.shGa;
+    acc.htPoints += resultPoints(match.htGf, match.htGa);
+    acc.finalPoints += resultPoints(match.gf, match.ga);
+    const before = resultPoints(match.htGf, match.htGa);
+    const after = resultPoints(match.gf, match.ga);
+    if (after > before) acc.improved += 1;
+    if (after < before) acc.worsened += 1;
+    return acc;
+  }, {htGf: 0, htGa: 0, shGf: 0, shGa: 0, htPoints: 0, finalPoints: 0, improved: 0, worsened: 0});
+
+  const totalScored = totals.htGf + totals.shGf;
+  const maxGoals = Math.max(totals.htGf, totals.htGa, totals.shGf, totals.shGa, 1);
+  const firstBalance = totals.htGf - totals.htGa;
+  const secondBalance = totals.shGf - totals.shGa;
+  const pointsSwing = totals.finalPoints - totals.htPoints;
+  const productive = totals.htGf === totals.shGf ? 'Equilibrado' : totals.htGf > totals.shGf ? '1Âº tempo' : '2Âº tempo';
+  const vulnerable = totals.htGa === totals.shGa ? 'Equilibrado' : totals.htGa > totals.shGa ? '1Âº tempo' : '2Âº tempo';
+
+  $('firstHalfFor').textContent = totals.htGf;
+  $('firstHalfAgainst').textContent = totals.htGa;
+  $('secondHalfFor').textContent = totals.shGf;
+  $('secondHalfAgainst').textContent = totals.shGa;
+  $('firstHalfShare').textContent = pct(totalScored ? totals.htGf / totalScored * 100 : 0);
+  $('secondHalfShare').textContent = pct(totalScored ? totals.shGf / totalScored * 100 : 0);
+  setHalfBalance('firstHalfBalance', firstBalance);
+  setHalfBalance('secondHalfBalance', secondBalance);
+  $('firstForBar').style.width = (totals.htGf / maxGoals * 100) + '%';
+  $('firstAgainstBar').style.width = (totals.htGa / maxGoals * 100) + '%';
+  $('secondForBar').style.width = (totals.shGf / maxGoals * 100) + '%';
+  $('secondAgainstBar').style.width = (totals.shGa / maxGoals * 100) + '%';
+  $('productiveHalf').textContent = productive;
+  $('vulnerableHalf').textContent = vulnerable;
+  $('improvedResults').textContent = totals.improved + ' Ã— ' + totals.worsened;
+  $('pointsSwing').textContent = signedNumber(pointsSwing) + ' pts';
+
+  const secondShare = totalScored ? totals.shGf / totalScored * 100 : 0;
+  $('halvesInsight').innerHTML = 'O <b>2Âº tempo</b> concentra <b>' + pct(secondShare) +
+    '</b> dos gols marcados. O saldo muda de <b>' + signedNumber(firstBalance) +
+    '</b> antes do intervalo para <b>' + signedNumber(secondBalance) + '</b> depois dele.';
+}
 function renderTable(list) {
   let accumulated = 0;
   const accumulatedByRound = new Map(matches.map(m => [m.round, (accumulated += m.points)]));
@@ -362,6 +436,7 @@ function applyFilter(filter) {
   const list = filter === 'Todos' ? matches : matches.filter(m => m.venue === filter);
   renderSummary(list);
   renderForm(list);
+  renderHalves(list);
   renderTable(list);
 }
 
@@ -410,6 +485,10 @@ async function loadCsv() {
       venue: row.mando,
       gf: Number(row.gols_nautico),
       ga: Number(row.gols_adversario),
+      htGf: Number(row.gols_1t_nautico),
+      htGa: Number(row.gols_1t_adversario),
+      shGf: Number(row.gols_2t_nautico),
+      shGa: Number(row.gols_2t_adversario),
       result: row.resultado,
       points: row.resultado === 'V' ? 3 : row.resultado === 'E' ? 1 : 0
     }));

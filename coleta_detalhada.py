@@ -1,8 +1,14 @@
+import os
 import requests
 import pandas as pd
 import time
 
-API_KEY = "fsa_live_a1c9890bcb041bbbd79451b878f68e66"
+API_KEY = os.environ.get("FSAPI_KEY")
+
+if not API_KEY:
+    raise RuntimeError(
+        "Defina a variÃ¡vel de ambiente FSAPI_KEY antes de executar a coleta."
+    )
 
 SERIE_B_ID = "lg_1VQKEDM"
 NAUTICO_ID = "tm_2GF105A"
@@ -217,6 +223,14 @@ for numero, basico in enumerate(
         "away_goals"
     )
 
+    gols_1t_mandante = jogo.get(
+        "half_time_home_goals"
+    )
+
+    gols_1t_visitante = jogo.get(
+        "half_time_away_goals"
+    )
+
 
     # =====================================================
     # IDENTIFICAR NÁUTICO
@@ -230,6 +244,8 @@ for numero, basico in enumerate(
 
         gols_nautico = gols_mandante
         gols_adversario = gols_visitante
+        gols_1t_nautico = gols_1t_mandante
+        gols_1t_adversario = gols_1t_visitante
 
         nome_nautico = mandante
         nome_adversario = visitante
@@ -242,6 +258,8 @@ for numero, basico in enumerate(
 
         gols_nautico = gols_visitante
         gols_adversario = gols_mandante
+        gols_1t_nautico = gols_1t_visitante
+        gols_1t_adversario = gols_1t_mandante
 
         nome_nautico = visitante
         nome_adversario = mandante
@@ -271,6 +289,30 @@ for numero, basico in enumerate(
     # =====================================================
     # ESTATÍSTICAS
     # =====================================================
+
+    gols_2t_nautico = None
+    gols_2t_adversario = None
+    resultado_intervalo = None
+
+    if (
+        gols_nautico is not None
+        and gols_adversario is not None
+        and gols_1t_nautico is not None
+        and gols_1t_adversario is not None
+    ):
+        gols_2t_nautico = gols_nautico - gols_1t_nautico
+        gols_2t_adversario = gols_adversario - gols_1t_adversario
+
+        if gols_1t_nautico > gols_1t_adversario:
+            resultado_intervalo = "V"
+        elif gols_1t_nautico < gols_1t_adversario:
+            resultado_intervalo = "D"
+        else:
+            resultado_intervalo = "E"
+
+
+    # =====================================================
+    # ESTATÃSTICAS
 
     stats_nautico = stats_time(
         jogo,
@@ -312,6 +354,21 @@ for numero, basico in enumerate(
 
         "resultado":
             resultado_nautico,
+
+        "gols_1t_nautico":
+            gols_1t_nautico,
+
+        "gols_1t_adversario":
+            gols_1t_adversario,
+
+        "gols_2t_nautico":
+            gols_2t_nautico,
+
+        "gols_2t_adversario":
+            gols_2t_adversario,
+
+        "resultado_intervalo":
+            resultado_intervalo,
 
         "estadio":
             jogo.get(
