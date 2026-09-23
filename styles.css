@@ -318,6 +318,11 @@ output { color: var(--red-deep); background: var(--red-soft); border: 1px solid 
 .halves-insights span { display: block; color: var(--muted); font-size: 8px; font-weight: 850; letter-spacing: .08em; }
 .halves-insights b { display: block; font-size: 18px; margin-top: 9px; }
 .halves-insights small { display: block; color: var(--muted); font-size: 8px; margin-top: 5px; line-height: 1.35; }
+.result-change-card #improvedResults { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; font-size: 13px; }
+.result-change-card #improvedResults em { padding: 5px 7px; border-radius: 99px; font-style: normal; }
+.result-change-card #improvedResults i { color: var(--muted); font-style: normal; }
+.result-change-card .change-up { color: #176a49; background: var(--win-soft); }
+.result-change-card .change-down { color: var(--red-deep); background: var(--red-soft); }
 .halves-note { margin-top: 12px; }
 .matches-section { padding-top: 66px; }
 .matches-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 22px; }

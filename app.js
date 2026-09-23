@@ -389,6 +389,12 @@ function renderHalves(list) {
   const firstBalance = totals.htGf - totals.htGa;
   const secondBalance = totals.shGf - totals.shGa;
   const pointsSwing = totals.finalPoints - totals.htPoints;
+  const unchanged = valid.length - totals.improved - totals.worsened;
+  const gameCount = value => value + (value === 1 ? ' jogo' : ' jogos');
+  const improvedText = gameCount(totals.improved) + (totals.improved === 1 ? ' melhorou' : ' melhoraram');
+  const worsenedText = gameCount(totals.worsened) + (totals.worsened === 1 ? ' piorou' : ' pioraram');
+  const unchangedText = gameCount(unchanged) + (unchanged === 1 ? ' manteve' : ' mantiveram');
+  const pointsSwingText = signedNumber(pointsSwing) + (Math.abs(pointsSwing) === 1 ? ' ponto' : ' pontos');
   const productive = totals.htGf === totals.shGf ? 'Equilibrado' : totals.htGf > totals.shGf ? '1º tempo' : '2º tempo';
   const vulnerable = totals.htGa === totals.shGa ? 'Equilibrado' : totals.htGa > totals.shGa ? '1º tempo' : '2º tempo';
 
@@ -406,13 +412,14 @@ function renderHalves(list) {
   $('secondAgainstBar').style.width = (totals.shGa / maxGoals * 100) + '%';
   $('productiveHalf').textContent = productive;
   $('vulnerableHalf').textContent = vulnerable;
-  $('improvedResults').textContent = totals.improved + ' × ' + totals.worsened;
-  $('pointsSwing').textContent = signedNumber(pointsSwing) + ' pts';
+  $('improvedResults').innerHTML = '<em class="change-up">' + improvedText + '</em>' +
+    '<i>•</i><em class="change-down">' + worsenedText + '</em>';
+  $('unchangedResults').textContent = unchangedText + ' o mesmo resultado';
+  $('pointsSwing').textContent = pointsSwingText;
 
-  const secondShare = totalScored ? totals.shGf / totalScored * 100 : 0;
-  $('halvesInsight').innerHTML = 'O <b>2º tempo</b> concentra <b>' + pct(secondShare) +
-    '</b> dos gols marcados. O saldo muda de <b>' + signedNumber(firstBalance) +
-    '</b> antes do intervalo para <b>' + signedNumber(secondBalance) + '</b> depois dele.';
+  $('halvesInsight').innerHTML = 'Em <b>' + gameCount(totals.improved) + '</b>, o Náutico terminou melhor do que estava no intervalo; ' +
+    'em <b>' + gameCount(totals.worsened) + '</b>, terminou pior; e em <b>' + gameCount(unchanged) + '</b>, manteve a mesma situação. ' +
+    'O saldo dessas mudanças foi de <b>' + pointsSwingText + '</b>.';
 }
 function renderTable(list) {
   let accumulated = 0;
