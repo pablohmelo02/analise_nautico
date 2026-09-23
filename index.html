@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#7f101c">
+  <title>Náutico | Painel de desempenho</title>
+  <meta name="description" content="Análise da campanha do Náutico na Série B 2026: pontos, aproveitamento, evolução e cenários.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Início">
+        <span class="brand-mark"><img src="nautico-logo.svg" alt="Escudo do Náutico"></span>
+        <span><b>NÁUTICO</b> 2026</span>
+      </a>
+      <nav aria-label="Seções do painel">
+        <a href="#campanha">Campanha</a>
+        <a href="#probabilidades">Probabilidades</a>
+        <a href="#evolucao">Evolução</a>
+        <a href="#jogos">Jogos</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="dashboard-heading" id="campanha">
+        <div class="dashboard-title">
+          <p class="eyebrow">BRASILEIRÃO · SÉRIE B · 2026</p>
+          <h1>Painel de desempenho</h1>
+          <p>Visão executiva da campanha do Náutico no campeonato.</p>
+        </div>
+        <div class="dashboard-context" aria-label="Contexto dos dados">
+          <div>
+            <span>Período analisado</span>
+            <b>22 mar — <span id="headerEndDate">--</span></b>
+          </div>
+          <div>
+            <span>Jogos disputados</span>
+            <b id="headerGames">-- de 38</b>
+          </div>
+          <div>
+            <span>Escopo</span>
+            <b>Casa e fora</b>
+          </div>
+        </div>
+      </section>
+
+      <section class="filter-row" aria-label="Filtro por mando de campo">
+        <div class="segmented" id="venueFilter">
+          <button class="active" data-filter="Todos">Todos os jogos</button>
+          <button data-filter="Casa">Em casa</button>
+          <button data-filter="Fora">Fora</button>
+        </div>
+        <p id="filterContext">Visão geral da campanha</p>
+      </section>
+
+      <section class="kpi-grid" aria-label="Indicadores principais">
+        <article class="kpi kpi-featured">
+          <div class="kpi-top"><span>Aproveitamento</span><span class="kpi-icon">GERAL</span></div>
+          <strong id="kpiEfficiency">--</strong>
+          <div class="meter"><i id="efficiencyMeter"></i></div>
+          <small id="efficiencyDetail">-- de -- pontos possíveis</small>
+        </article>
+        <article class="kpi kpi-campaign">
+          <div class="kpi-top"><span>Campanha</span><span class="kpi-icon">V · E · D</span></div>
+          <div class="record-grid">
+            <div class="record-win"><strong id="kpiWins">--</strong><span>Vitórias</span></div>
+            <div class="record-draw"><strong id="kpiDraws">--</strong><span>Empates</span></div>
+            <div class="record-loss"><strong id="kpiLosses">--</strong><span>Derrotas</span></div>
+          </div>
+          <small class="points-rule">Vitória <b>3 pts</b> · Empate <b>1 pt</b> · Derrota <b>0 pt</b></small>
+        </article>
+        <article class="kpi kpi-average">
+          <div class="kpi-top"><span>Média por jogo</span><span class="kpi-icon">PTS / JOGO</span></div>
+          <strong id="kpiPpg">--</strong>
+          <div class="mini-meter"><i id="ppgMeter"></i></div>
+          <small>de um máximo de 3,00 pontos</small>
+        </article>
+        <article class="kpi kpi-goals">
+          <div class="kpi-top"><span>Saldo de gols</span><span class="kpi-icon">GOLS</span></div>
+          <strong id="kpiGoalDiff">--</strong>
+          <div class="goal-pair">
+            <span><b id="goalsFor">--</b> marcados</span>
+            <span><b id="goalsAgainst">--</b> sofridos</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="probability-section" id="probabilidades">
+        <div class="probability-head">
+          <div>
+            <p class="section-kicker">MODELO DE CENÁRIOS</p>
+            <h2>As 10 rodadas finais</h2>
+          </div>
+          <p>Probabilidades estimadas pelo desempenho em casa e fora — acompanhadas do caminho necessário em pontos.</p>
+        </div>
+        <div class="probability-grid">
+          <article class="probability-card access-card">
+            <div class="probability-card-head"><span>Chance estimada de acesso</span><i>↑</i></div>
+            <div class="probability-value"><strong id="accessProbability">--</strong><em>BAIXA</em></div>
+            <div class="probability-bar"><i id="accessBar"></i></div>
+            <div class="probability-facts">
+              <div><span>Acesso direto</span><b id="directProbability">--</b></div>
+              <div><span>Via playoffs</span><b id="playoffAccessProbability">--</b></div>
+            </div>
+            <p id="accessDetail">--</p>
+          </article>
+          <article class="probability-card playoff-card">
+            <div class="probability-card-head"><span>Chance de alcançar o G6</span><i>G6</i></div>
+            <div class="probability-value"><strong id="playoffProbability">--</strong><em>DESAFIO ALTO</em></div>
+            <div class="probability-bar"><i id="playoffBar"></i></div>
+            <div class="probability-facts">
+              <div><span>Meta usada</span><b>60 pts</b></div>
+              <div><span>A conquistar</span><b id="playoffPointsNeeded">--</b></div>
+            </div>
+            <p id="playoffDetail">--</p>
+          </article>
+          <article class="probability-card relegation-card">
+            <div class="probability-card-head"><span>Risco de rebaixamento</span><i>↓</i></div>
+            <div class="probability-value"><strong id="relegationProbability">--</strong><em>RISCO BAIXO</em></div>
+            <div class="probability-bar"><i id="relegationBar"></i></div>
+            <div class="probability-facts">
+              <div><span>Chance de ficar</span><b id="survivalProbability">--</b></div>
+              <div><span>Até 45 pontos</span><b id="safetyPointsNeeded">--</b></div>
+            </div>
+            <p id="relegationDetail">--</p>
+          </article>
+          <aside class="model-card">
+            <div class="probability-card-head"><span>FAIXA MAIS PROVÁVEL</span><i>38R</i></div>
+            <strong id="likelyRange">--</strong>
+            <div class="range-scale">
+              <i></i><i class="median-dot"></i><i></i>
+            </div>
+            <div class="range-labels"><span id="rangeLow">--</span><b id="rangeMedian">--</b><span id="rangeHigh">--</span></div>
+            <p id="modelSummary">--</p>
+            <button type="button" id="modelInfoButton">Como calculamos?</button>
+          </aside>
+        </div>
+        <div class="model-explanation" id="modelExplanation" hidden>
+          <p><b>Modelo:</b> distribuição preditiva bayesiana com os resultados do Náutico separados por mando. A faixa de G6 usa 60 pontos, próxima ao ritmo da linha do G6 em setembro; acesso direto, 65; e risco de queda, 44 pontos ou menos, um limite conservador diante das últimas edições. Para a fase de playoffs, foi aplicada chance neutra de 50% no confronto.</p>
+          <p>É uma estimativa de cenário, não uma probabilidade oficial: a base não contém os jogos completos dos outros 19 clubes, critérios de desempate, desfalques ou força dos próximos adversários.</p>
+        </div>
+      </section>
+
+      <section class="dashboard-grid" id="evolucao">
+        <article class="panel chart-panel">
+          <div class="panel-head">
+            <div>
+              <p class="section-kicker">RODADA A RODADA</p>
+              <h2>Evolução dos pontos</h2>
+            </div>
+            <div class="legend"><span><i class="actual"></i>Náutico</span><span><i class="pace"></i>Ritmo de 50%</span></div>
+          </div>
+          <div class="chart-statline">
+            <div><span>Pontuação atual</span><b id="chartCurrentPoints">--</b></div>
+            <div><span>Ritmo de 50%</span><b id="chartPacePoints">--</b></div>
+            <div id="chartGapCard"><span>Diferença</span><b id="chartGap">--</b></div>
+          </div>
+          <div class="chart-wrap" id="pointsChart" role="img" aria-label="Gráfico de evolução de pontos"></div>
+          <div class="chart-insight" id="chartInsight"></div>
+        </article>
+
+        <article class="panel campaign-panel">
+          <div class="panel-head compact">
+            <div>
+              <p class="section-kicker">DISTRIBUIÇÃO</p>
+              <h2>Resultados</h2>
+            </div>
+          </div>
+          <div class="donut-row">
+            <div class="donut" id="resultDonut"><div><strong id="donutEfficiency">--</strong><span>aproveitamento</span></div></div>
+            <div class="result-list">
+              <div class="result-win"><span><i class="win"></i>Vitórias</span><small id="winsPercent">--</small><b id="winsCount">--</b></div>
+              <div class="result-draw"><span><i class="draw"></i>Empates</span><small id="drawsPercent">--</small><b id="drawsCount">--</b></div>
+              <div class="result-loss"><span><i class="loss"></i>Derrotas</span><small id="lossesPercent">--</small><b id="lossesCount">--</b></div>
+            </div>
+          </div>
+          <div class="result-highlights">
+            <div><span>Taxa de vitória</span><b id="winRate">--</b></div>
+            <div><span>Jogos sem derrota</span><b id="nonLossRate">--</b></div>
+          </div>
+          <div class="form-block">
+            <span>RECORTE DOS ÚLTIMOS 5</span>
+            <div id="recentForm" class="form-dots"></div>
+            <small id="recentPoints">--</small>
+          </div>
+        </article>
+
+        <article class="panel venue-panel">
+          <div class="panel-head compact">
+            <div>
+              <p class="section-kicker">MANDO DE CAMPO</p>
+              <h2>Onde rende mais?</h2>
+            </div>
+          </div>
+          <div id="venueComparison"></div>
+          <div class="analysis-note" id="venueInsight"></div>
+        </article>
+
+        <article class="panel projection-panel">
+          <div class="panel-head compact">
+            <div>
+              <p class="section-kicker">PROJEÇÃO · 38 RODADAS</p>
+              <h2>Cenário de chegada</h2>
+            </div>
+            <span class="projection-number" id="projectedPoints">-- pts</span>
+          </div>
+          <p class="projection-copy" id="projectionCopy"></p>
+          <div class="target-control">
+            <label for="targetPoints">Simular meta de pontos</label>
+            <div class="range-line">
+              <input id="targetPoints" type="range" min="42" max="65" value="50">
+              <output id="targetOutput" for="targetPoints">50</output>
+            </div>
+          </div>
+          <div class="scenario" id="scenarioText"></div>
+          <div class="remaining-fixtures">
+            <span>PRÓXIMOS ADVERSÁRIOS</span>
+            <div id="remainingFixtures"></div>
+          </div>
+          <small class="method">Simulação considera vitórias e derrotas nos jogos restantes; cada empate reduz a necessidade em 1 ponto.</small>
+        </article>
+
+        <article class="panel performance-panel">
+          <div class="panel-head">
+            <div>
+              <p class="section-kicker">CONSISTÊNCIA</p>
+              <h2>Rendimento jogo a jogo</h2>
+            </div>
+            <div class="points-key"><span><i class="p3"></i>3 pts</span><span><i class="p1"></i>1 pt</span><span><i class="p0"></i>0 pt</span></div>
+          </div>
+          <div class="game-strip" id="gameStrip"></div>
+          <div class="period-grid" id="periodGrid"></div>
+          <div class="streak-grid" id="streakGrid"></div>
+        </article>
+      </section>
+
+      <section class="matches-section" id="jogos">
+        <div class="matches-head">
+          <div>
+            <p class="section-kicker">JOGO A JOGO</p>
+            <h2>A campanha completa</h2>
+          </div>
+          <label class="search-box">
+            <span aria-hidden="true">⌕</span>
+            <input id="matchSearch" type="search" placeholder="Buscar adversário" aria-label="Buscar adversário">
+          </label>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Rodada</th><th>Data</th><th>Partida</th><th>Mando</th><th>Resultado</th><th>Pontos</th><th>Acumulado</th></tr></thead>
+            <tbody id="matchesBody"></tbody>
+          </table>
+        </div>
+        <p class="empty-state" id="emptyState" hidden>Nenhum jogo encontrado.</p>
+      </section>
+
+      <section class="methodology">
+        <span>COMO LER</span>
+        <p>Vitória vale <b>3 pontos</b>, empate vale <b>1 ponto</b> e derrota vale <b>0 ponto</b>. O aproveitamento compara os pontos conquistados com o máximo possível no recorte selecionado. Referências externas: <a href="https://www.cbf.com.br/futebol-brasileiro/noticias/undefined/sao-paulo-x-sport/cbf-divulga-documentos-tecnicos-do-brasileirao-da-serie-b-de-2026" target="_blank" rel="noreferrer">regulamento da Série B 2026</a> e <a href="https://www.cbf.com.br/futebol-brasileiro/tabelas/campeonato-brasileiro/serie-b/2025" target="_blank" rel="noreferrer">classificações oficiais da CBF</a>.</p>
+      </section>
+    </main>
+
+    <footer>
+      <span>Painel Náutico · Série B 2026</span>
+      <span>Fonte: base local de jogos</span>
+    </footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
