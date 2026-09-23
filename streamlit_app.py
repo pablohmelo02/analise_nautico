@@ -83,4 +83,4 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-components.html(build_dashboard(), height=6200, scrolling=False)
+st.iframe(build_dashboard(), width='stretch', height='content')

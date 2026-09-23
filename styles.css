@@ -327,7 +327,7 @@ tbody tr.row-D td:first-child { box-shadow: inset 3px 0 var(--red); }
 .methodology span { color: var(--red); font-size: 10px; font-weight: 850; letter-spacing: .15em; }
 .methodology p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
 .methodology a { color: var(--red); font-weight: 700; text-underline-offset: 2px; }
-footer { margin: 0 clamp(20px, 5vw, 72px); min-height: 76px; display: flex; align-items: center; justify-content: space-between; color: var(--muted); font-size: 10px; }
+footer { display: none; }
 
 @media (max-width: 960px) {
   .dashboard-heading { align-items: flex-start; flex-direction: column; gap: 20px; }
