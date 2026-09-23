@@ -7,7 +7,7 @@ API_KEY = os.environ.get("FSAPI_KEY")
 
 if not API_KEY:
     raise RuntimeError(
-        "Defina a variÃ¡vel de ambiente FSAPI_KEY antes de executar a coleta."
+        "Defina a variável de ambiente FSAPI_KEY antes de executar a coleta."
     )
 
 SERIE_B_ID = "lg_1VQKEDM"
@@ -312,7 +312,7 @@ for numero, basico in enumerate(
 
 
     # =====================================================
-    # ESTATÃSTICAS
+    # ESTATÍSTICAS
 
     stats_nautico = stats_time(
         jogo,

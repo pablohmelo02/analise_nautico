@@ -367,7 +367,7 @@ function setHalfBalance(id, value) {
 function renderHalves(list) {
   const valid = list.filter(m => [m.htGf, m.htGa, m.shGf, m.shGa].every(Number.isFinite));
   if (!valid.length) {
-    $('halvesInsight').textContent = 'Os placares de intervalo nÃ£o estÃ£o disponÃ­veis para este recorte.';
+    $('halvesInsight').textContent = 'Os placares de intervalo não estão disponíveis para este recorte.';
     return;
   }
   const totals = valid.reduce((acc, match) => {
@@ -389,8 +389,8 @@ function renderHalves(list) {
   const firstBalance = totals.htGf - totals.htGa;
   const secondBalance = totals.shGf - totals.shGa;
   const pointsSwing = totals.finalPoints - totals.htPoints;
-  const productive = totals.htGf === totals.shGf ? 'Equilibrado' : totals.htGf > totals.shGf ? '1Âº tempo' : '2Âº tempo';
-  const vulnerable = totals.htGa === totals.shGa ? 'Equilibrado' : totals.htGa > totals.shGa ? '1Âº tempo' : '2Âº tempo';
+  const productive = totals.htGf === totals.shGf ? 'Equilibrado' : totals.htGf > totals.shGf ? '1º tempo' : '2º tempo';
+  const vulnerable = totals.htGa === totals.shGa ? 'Equilibrado' : totals.htGa > totals.shGa ? '1º tempo' : '2º tempo';
 
   $('firstHalfFor').textContent = totals.htGf;
   $('firstHalfAgainst').textContent = totals.htGa;
@@ -406,11 +406,11 @@ function renderHalves(list) {
   $('secondAgainstBar').style.width = (totals.shGa / maxGoals * 100) + '%';
   $('productiveHalf').textContent = productive;
   $('vulnerableHalf').textContent = vulnerable;
-  $('improvedResults').textContent = totals.improved + ' Ã— ' + totals.worsened;
+  $('improvedResults').textContent = totals.improved + ' × ' + totals.worsened;
   $('pointsSwing').textContent = signedNumber(pointsSwing) + ' pts';
 
   const secondShare = totalScored ? totals.shGf / totalScored * 100 : 0;
-  $('halvesInsight').innerHTML = 'O <b>2Âº tempo</b> concentra <b>' + pct(secondShare) +
+  $('halvesInsight').innerHTML = 'O <b>2º tempo</b> concentra <b>' + pct(secondShare) +
     '</b> dos gols marcados. O saldo muda de <b>' + signedNumber(firstBalance) +
     '</b> antes do intervalo para <b>' + signedNumber(secondBalance) + '</b> depois dele.';
 }
