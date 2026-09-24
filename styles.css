@@ -360,10 +360,6 @@ tbody tr.row-D td:first-child { box-shadow: inset 3px 0 var(--red); }
 .accumulated { display: flex; align-items: baseline; gap: 4px; }
 .accumulated b { font: 650 17px/1 var(--font-sans); }.accumulated span { color: var(--muted); font-size: 8px; }
 .empty-state { text-align: center; color: var(--muted); padding: 30px; }
-.methodology { margin-top: 40px; padding: 20px 24px; display: grid; grid-template-columns: 120px 1fr; gap: 24px; border: 1px solid var(--line); border-radius: var(--radius-md); background: rgba(255,255,255,.55); }
-.methodology span { color: var(--red); font-size: 10px; font-weight: 850; letter-spacing: .15em; }
-.methodology p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
-.methodology a { color: var(--red); font-weight: 700; text-underline-offset: 2px; }
 footer { display: none; }
 
 @media (max-width: 960px) {
@@ -408,5 +404,4 @@ footer { display: none; }
   .form-block { grid-template-columns: 1fr; text-align: center; }
   .matches-head { align-items: stretch; flex-direction: column; }
   .search-box { min-width: 0; }
-  .methodology { grid-template-columns: 1fr; gap: 8px; }
 }
