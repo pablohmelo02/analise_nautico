@@ -282,11 +282,19 @@ output { color: var(--red-deep); background: var(--red-soft); border: 1px solid 
 .period-meter i { display: block; height: 100%; background: var(--red); border-radius: inherit; }
 .period-card small { color: var(--muted); font-size: 9px; }
 .period-card.best { box-shadow: inset 3px 0 var(--red); }
-.streak-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; border-top: 1px solid var(--line); margin-top: 20px; padding-top: 20px; }
-.streak-item { background: #f5f5f3; border-radius: 9px; padding: 12px; }
-.streak-item b { display: block; font: 650 24px/1 var(--font-sans); }
-.streak-item span { display: block; color: var(--muted); font-size: 9px; line-height: 1.35; margin-top: 6px; }
-
+.streak-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; border-top: 1px solid var(--line); margin-top: 20px; padding-top: 20px; }
+.streak-item { --metric-color: var(--red); position: relative; min-height: 132px; overflow: hidden; background: #fff; border: 1px solid var(--line); border-radius: 11px; padding: 15px; }
+.streak-item::before { position: absolute; inset: 0 auto 0 0; width: 3px; background: var(--metric-color); content: ''; }
+.streak-item.green { --metric-color: #23815c; }
+.streak-item.dark { --metric-color: var(--ink); }
+.streak-item.gold { --metric-color: var(--gold); }
+.streak-eyebrow { display: flex; align-items: center; gap: 6px; color: var(--metric-color); font-size: 8px; font-weight: 850; letter-spacing: .11em; }
+.streak-eyebrow::before { width: 6px; height: 6px; flex: 0 0 auto; border-radius: 50%; background: var(--metric-color); content: ''; }
+.streak-value { display: flex; align-items: baseline; gap: 6px; margin: 13px 0 8px; }
+.streak-value b { font: 700 30px/1 var(--font-sans); letter-spacing: -.03em; }
+.streak-value small { color: var(--muted); font-size: 9px; font-weight: 650; }
+.streak-item > strong { display: block; color: var(--ink); font-size: 11px; line-height: 1.3; }
+.streak-item > p { margin: 4px 0 0; color: var(--muted); font-size: 9px; line-height: 1.35; }
 .halves-panel { grid-column: 1 / -1; }
 .halves-head > p { max-width: 360px; margin: 8px 0 0; color: var(--muted); font-size: 11px; line-height: 1.5; text-align: right; }
 .halves-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
@@ -397,8 +405,7 @@ footer { display: none; }
   .halves-grid { grid-template-columns: 1fr; }
   .halves-head > p { text-align: left; }
   .halves-insights { grid-template-columns: repeat(2, 1fr); }
-  .streak-grid { grid-template-columns: repeat(2, 1fr); gap: 20px 0; }
-  .streak-item:nth-child(2) { border: 0; }
+  .streak-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   .donut-row { grid-template-columns: 125px 1fr; gap: 16px; }
   .donut { width: 125px; }
   .form-block { grid-template-columns: 1fr; text-align: center; }

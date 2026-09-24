@@ -323,15 +323,21 @@ function renderPerformance() {
   </div>`).join('');
 
   const cleanSheets = matches.filter(match => match.ga === 0).length;
-  const scored = matches.filter(match => match.gf > 0).length;
   const recent = summarize(matches.slice(-5));
+  const unbeatenRun = longestSequence(match => match.result !== 'D');
+  const winningRun = longestSequence(match => match.result === 'V');
   const items = [
-    [longestSequence(match => match.result !== 'D'), 'maior série invicta'],
-    [longestSequence(match => match.result === 'V'), 'maior série de vitórias'],
-    [`${cleanSheets}/${matches.length}`, 'jogos sem sofrer gol'],
-    [`${recent.points}/15`, `pontos nos últimos 5 · marcou em ${scored}/${matches.length}`]
+    {value: unbeatenRun, unit: unbeatenRun === 1 ? 'jogo' : 'jogos', eyebrow: 'REGULARIDADE', title: 'Maior sequência invicta', note: 'sem derrotas consecutivas', tone: 'red'},
+    {value: winningRun, unit: winningRun === 1 ? 'jogo' : 'jogos', eyebrow: 'VITÓRIAS', title: 'Maior sequência de vitórias', note: 'vitórias consecutivas', tone: 'green'},
+    {value: cleanSheets, unit: `de ${matches.length} jogos`, eyebrow: 'SOLIDEZ DEFENSIVA', title: 'Jogos sem sofrer gol', note: `${pct(cleanSheets / matches.length * 100)} das partidas`, tone: 'dark'},
+    {value: recent.points, unit: 'de 15 pontos', eyebrow: 'MOMENTO RECENTE', title: 'Últimos 5 jogos', note: `${pct(recent.efficiency)} de aproveitamento`, tone: 'gold'}
   ];
-  $('streakGrid').innerHTML = items.map(([value, label]) => `<div class="streak-item"><b>${value}</b><span>${label}</span></div>`).join('');
+  $('streakGrid').innerHTML = items.map(item => `<div class="streak-item ${item.tone}">
+    <span class="streak-eyebrow">${item.eyebrow}</span>
+    <div class="streak-value"><b>${item.value}</b><small>${item.unit}</small></div>
+    <strong>${item.title}</strong>
+    <p>${item.note}</p>
+  </div>`).join('');
 }
 
 function updateScenario() {
